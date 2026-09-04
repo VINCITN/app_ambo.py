@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 st.set_page_config(page_title="Verifica Terno Ago-Set", page_icon="🎰", layout="centered")
 
 st.title("🎰 Verifica Ambi e Terni (Agosto - Settembre 2026)")
-st.write("Verifica le vincite sulle ruote di Venezia, Torino, Milano e Genova limitatamente ad Agosto e Settembre.")
+st.write("Verifica le vincite sulle ruote di Venezia, Roma, Milano e Genova limitatamente ad Agosto e Settembre.")
 
 # Mantiene i numeri stabili sullo schermo
 if 'terno' not in st.session_state:
@@ -36,14 +36,14 @@ def genera_archivio_filtrato_2026():
     data_inizio = datetime(2026, 1, 2)
     data_corrente = datetime.now()
     
-    # Giorni di estrazione standard: 1=Martedì, 3=Giovedì, 4=Venerdì, 5=Sabato
+    # Giorni di estrazione standard (1=Martedì, 3=Giovedì, 4=Venerdì, 5=Sabato)
     giorni_validi = [1, 3, 4, 5]
     
     id_concorso = 1
     data_ciclo = data_inizio
     
     random.seed(2026) # Mantiene i dati coerenti a ogni avvio
-    ruote = ["Venezia", "Torino", "Milano", "Genova"]
+    ruote = ["Venezia", "Roma", "Milano", "Genova"]
     
     while data_ciclo <= data_corrente:
         if data_ciclo.weekday() in giorni_validi:
@@ -81,7 +81,7 @@ for concorso in archivio_completo:
         # FILTRO: Solo Ambo (2) e Terno (3) - Esclude le Ambate (1)
         if punti >= 2:
             if punti == 3:
-                esito_testo = "🎉 TERNO SECC!"
+                esito_testo = "🎉 TERNO SECCO!"
                 conteggio_esiti["Terno"] += 1
             elif punti == 2:
                 esito_testo = "🥈 Ambo"
@@ -96,7 +96,7 @@ for concorso in archivio_completo:
                 "Esito": esito_testo
             })
 
-# Visualizzazione metriche (senza la colonna Ambata)
+# Visualizzazione metriche
 col_t, col_am = st.columns(2)
 col_t.metric("Terni Totali (Ago-Set)", conteggio_esiti["Terno"])
 col_am.metric("Ambi Totali (Ago-Set)", conteggio_esiti["Ambo"])
@@ -107,6 +107,6 @@ if risultati_tabella:
     risultati_tabella.reverse() # Mostra i più recenti in alto
     st.dataframe(risultati_tabella, use_container_width=True, hide_index=True)
 else:
-    st.warning("Nessun ambo o terno registrato in questi due mesi su Venezia, Torino, Milano e Genova.")
+    st.warning("Nessun ambo o terno registrato in questi due mesi su Venezia, Roma, Milano e Genova.")
 
 st.info("💡 Ricorda: Il gioco del Lotto è basato interamente sulla casualità. Gioca sempre in modo responsabile.")
