@@ -16,7 +16,7 @@ if 'terno' not in st.session_state:
 if st.button("🔮 Genera Nuovo Terno", type="primary"):
     st.session_state.terno = sorted(random.sample(range(1, 91), 3))
 
-# Visualizzazione dei numeri nelle colonne
+# Visualizzazione dei singoli numeri nelle colonne
 st.subheader("I tuoi numeri fortunati:")
 col1, col2, col3 = st.columns(3)
 with col1:
@@ -37,7 +37,7 @@ def genera_archivio_filtrato_2026():
     data_corrente = datetime.now()
     
     # Giorni di estrazione standard: 1=Martedì, 3=Giovedì, 4=Venerdì, 5=Sabato
-    giorni_estrazione = [1, 3, 4, 5]
+    giorni_validi = [1, 3, 4, 5]
     
     id_concorso = 1
     data_ciclo = data_inizio
@@ -46,7 +46,7 @@ def genera_archivio_filtrato_2026():
     ruote = ["Venezia", "Torino", "Milano", "Genova"]
     
     while data_ciclo <= data_corrente:
-        if data_ciclo.weekday() in giorni_estrazione:
+        if data_ciclo.weekday() in giorni_validi:
             # Estrae i dati per tutte le ruote
             estrazione_concorso = {
                 "Concorso": f"{id_concorso}/2026",
@@ -69,8 +69,8 @@ risultati_tabella = []
 conteggio_esiti = {"Terno": 0, "Ambo": 0}
 
 for concorso in archivio_completo:
-    # FILTRO: Considera solo Agosto (8) e Settembre (9)
-    if concorso["Mese"] not in:
+    # FILTRO SICURO: Considera solo Agosto (8) e Settembre (9)
+    if concorso["Mese"] != 8 and concorso["Mese"] != 9:
         continue
         
     for ruota, cinquina in concorso["Ruote"].items():
@@ -81,7 +81,7 @@ for concorso in archivio_completo:
         # FILTRO: Solo Ambo (2) e Terno (3) - Esclude le Ambate (1)
         if punti >= 2:
             if punti == 3:
-                esito_testo = "🎉 TERNO SECO!"
+                esito_testo = "🎉 TERNO SECC!"
                 conteggio_esiti["Terno"] += 1
             elif punti == 2:
                 esito_testo = "🥈 Ambo"
