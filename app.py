@@ -16,7 +16,7 @@ if 'terno' not in st.session_state:
 if st.button("🔮 Genera Nuovo Terno", type="primary"):
     st.session_state.terno = sorted(random.sample(range(1, 91), 3))
 
-# Visualizzazione dei numeri
+# Visualizzazione dei numeri nelle colonne
 st.subheader("I tuoi numeri fortunati:")
 col1, col2, col3 = st.columns(3)
 with col1:
@@ -35,12 +35,14 @@ def genera_archivio_filtrato_2026():
     archivio = []
     data_inizio = datetime(2026, 1, 2)
     data_corrente = datetime.now()
-    giorni_estrazione = [1, 3, 4, 5] # Mar, Gio, Ven, Sab
+    
+    # Giorni di estrazione standard: 1=Martedì, 3=Giovedì, 4=Venerdì, 5=Sabato
+    giorni_estrazione = [1, 3, 4, 5]
     
     id_concorso = 1
     data_ciclo = data_inizio
     
-    random.seed(2026) # Mantiene i dati coerenti
+    random.seed(2026) # Mantiene i dati coerenti a ogni avvio
     ruote = ["Venezia", "Torino", "Milano", "Genova"]
     
     while data_ciclo <= data_corrente:
